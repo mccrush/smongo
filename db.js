@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb')
 //const { URL } = require('vars.js')
 
-const URL = 'mongodb://127.0.0.1:27017/'
+const URL = 'mongodb://127.0.0.1:27017/erp'
 
 let dbConnection
 
@@ -21,3 +21,4 @@ module.exports = {
 
   getDb: () => dbConnection
 }
+
