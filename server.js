@@ -1,7 +1,10 @@
+//require('dotenv').config()
 const express = require('express')
 const { connectToDb, getDb } = require('./db')
 
 //const APP_ADDRESS = '127.0.5.66:55542'
+//const APP_ADDRESS = process.env.APP_ADDRESS
+//console.log(`server.js APP_ADDRESS = ${APP_ADDRESS}`);
 const APP_ADDRESS = 27017
 
 const app = express()
