@@ -21,6 +21,9 @@ const start = async () => {
   try {
     await mongoose.connect(DB_URL)
     console.log(`server.js start() DB is connect`)
+    app.listen(APP_ADDRESS, (error) => {
+      error ? console.log(error) : console.log(`server.js Listening port: ${APP_ADDRESS}`)
+    })
   } catch (error) {
     console.log(`server.js start() Error connect to DB ${error}`)
   }
@@ -28,9 +31,7 @@ const start = async () => {
 
 start()
 
-app.listen(APP_ADDRESS, (error) => {
-  error ? console.log(error) : console.log(`server.js Listening port: ${APP_ADDRESS}`)
-})
+
 
 
 let db
