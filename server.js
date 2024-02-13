@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/user-routes')
+const companyRoutes = require('./routes/company-routes')
 
 let APP_IP = ''
 let APP_PORT = ''
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 })
 
 app.use(userRoutes)
+app.use(companyRoutes)
 
 const start = async () => {
   try {
