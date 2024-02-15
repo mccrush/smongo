@@ -26,6 +26,54 @@ const getUser = async (req, res) => {
   }
 }
 
+const getUserE = async (req, res) => {
+  try {
+    const result = await User.findOne({ email: req.body.email })
+    if (result) {
+      if (result.password === req.body.password) {
+        res
+          .status(200)
+          .json({ _id: result._id, name: result.name, email: result.email, accessLevel: result.accessLevel, companyId: result.companyId })
+      } else {
+        res
+          .status(500)
+          .json({ error: "Введен неверный пароль" })
+      }
+    } else {
+      res
+        .status(500)
+        .json({ error: "Пользователь с таким Email не найден" })
+    }
+
+
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Ошибка при получении данных user:email с сервера" })
+  }
+}
+
+const getUserK = async (req, res) => {
+  try {
+    const result = await User.findOne({ _id: req.body.aKey })
+    if (result) {
+      res
+        .status(200)
+        .json({ _id: result._id, name: result.name, email: result.email, accessLevel: result.accessLevel, companyId: result.companyId })
+    } else {
+      res
+        .status(200)
+        .json({ error: "Недействительный ключ" })
+    }
+
+
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Ошибка при получении данных с помощью ключа с сервера" })
+  }
+}
+
 const deleteUser = async (req, res) => {
   try {
     const result = await User.findByIdAndDelete(req.params.id)
@@ -71,5 +119,7 @@ module.exports = {
   getUser,
   deleteUser,
   addUser,
-  updateUser
+  updateUser,
+  getUserE,
+  getUserK
 }
