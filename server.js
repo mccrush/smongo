@@ -22,6 +22,10 @@ if (process.env.APP_ENV === 'dev') {
 const app = express()
 app.use(express.json())
 
+app.get('/', function (req, res) {
+  res.sendfile('index.html');
+});
+
 
 app.use((req, res, next) => {
   //res.setHeader('Access-Control-Allow-Origin', 'https://testapp.na4u.ru')
