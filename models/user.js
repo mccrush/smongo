@@ -7,7 +7,7 @@ const userSchema = new Schema({
   type: { type: String, default: 'users' },
   email: { type: String, required: true },
   phone: { type: String },
-  job: { type: String },
+  job: { type: Object },
   companyId: { type: String, required: true },
   accessLevel: { type: Number, min: 1, max: 3, default: 3 },
 })
