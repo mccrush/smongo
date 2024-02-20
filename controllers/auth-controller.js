@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
     const token = generateAccessToken(user._id, user.roles)
     res
       .status(200)
-      .json({ token })
+      .json({ token, user })
   } catch (error) {
     res
       .status(500)

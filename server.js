@@ -33,7 +33,7 @@ app.use((req, res, next) => {
   //res.setHeader('Access-Control-Allow-Origin', 'https://testapp.na4u.ru')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, PATCH, DELETE')
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type')
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization')
   res.setHeader('Access-Control-Allow-Credentials', true)
   next()
 })
