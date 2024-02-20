@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken')
 const { secret } = require('./../config')
 const { json } = require('express')
 
-const generateAccessToken = (id, roles) => {
+const generateAccessToken = (id, roles, email, password) => {
   const payload = {
-    id, roles
+    id, roles, email, password
   }
   return jwt.sign(payload, secret, { expiresIn: '24h' })
 }
@@ -47,10 +47,42 @@ const loginUser = async (req, res) => {
         .json({ message: "Введен неверный пароль" })
     }
 
-    const token = generateAccessToken(user._id, user.roles)
+    const token = generateAccessToken(user._id, user.roles, user.email, user.password)
     res
       .status(200)
       .json({ token, user })
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Ошибка при попытке залогинться", error })
+  }
+}
+
+const loginUserWithToken = async (req, res) => {
+  try {
+    //console.log('loginUserWithToken(), req.headers.authorization = ', req.headers.authorization);
+    const token = req.headers.authorization
+    //const { email, password } = jwt.verify(token, secret)
+    //console.log('req.user = ', req.user);
+    const { email, password } = req.user
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res
+        .status(500)
+        .json({ message: "Пользователь с таким адресом почты не найден" })
+    }
+
+    //const validPassword = bcrypt.compareSync(password, user.password)
+    //console.log('user.password = ', user.password);
+    if (password === user.password) {
+      res
+        .status(200)
+        .json({ token, user })
+    } else {
+      return res
+        .status(500)
+        .json({ message: "Введен неверный пароль" })
+    }
   } catch (error) {
     res
       .status(500)
@@ -62,5 +94,6 @@ const loginUser = async (req, res) => {
 
 module.exports = {
   loginUser,
+  loginUserWithToken,
   getRoles,
 }
