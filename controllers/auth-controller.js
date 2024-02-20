@@ -58,12 +58,10 @@ const loginUser = async (req, res) => {
   }
 }
 
+// Автоматический вход, если токен существует на клиенте
 const loginUserWithToken = async (req, res) => {
   try {
-    //console.log('loginUserWithToken(), req.headers.authorization = ', req.headers.authorization);
     const token = req.headers.authorization
-    //const { email, password } = jwt.verify(token, secret)
-    //console.log('req.user = ', req.user);
     const { email, password } = req.user
     const user = await User.findOne({ email })
     if (!user) {
@@ -72,8 +70,6 @@ const loginUserWithToken = async (req, res) => {
         .json({ message: "Пользователь с таким адресом почты не найден" })
     }
 
-    //const validPassword = bcrypt.compareSync(password, user.password)
-    //console.log('user.password = ', user.password);
     if (password === user.password) {
       res
         .status(200)

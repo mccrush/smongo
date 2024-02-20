@@ -28,54 +28,6 @@ const getUser = async (req, res) => {
   }
 }
 
-const getUserE = async (req, res) => {
-  try {
-    const result = await User.findOne({ email: req.body.email })
-    if (result) {
-      if (result.password === req.body.password) {
-        res
-          .status(200)
-          .json({ _id: result._id, name: result.name, email: result.email, accessLevel: result.accessLevel, companyId: result.companyId })
-      } else {
-        res
-          .status(500)
-          .json({ error: "Введен неверный пароль" })
-      }
-    } else {
-      res
-        .status(500)
-        .json({ error: "Пользователь с таким Email не найден" })
-    }
-
-
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Ошибка при получении данных user:email с сервера", error })
-  }
-}
-
-const getUserK = async (req, res) => {
-  try {
-    const result = await User.findOne({ _id: req.body.aKey })
-    if (result) {
-      res
-        .status(200)
-        .json({ _id: result._id, name: result.name, email: result.email, accessLevel: result.accessLevel, companyId: result.companyId })
-    } else {
-      res
-        .status(200)
-        .json({ error: "Недействительный ключ" })
-    }
-
-
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Ошибка при получении данных с помощью ключа с сервера", error })
-  }
-}
-
 const deleteUser = async (req, res) => {
   try {
     const result = await User.findByIdAndDelete(req.params.id)
@@ -89,8 +41,8 @@ const deleteUser = async (req, res) => {
   }
 }
 
+// Создание и регистрация новых пользователей
 const addUser = async (req, res) => {
-
   try {
     const { name, email, password, companyId } = req.body
     const candidate = await User.findOne({ email })
@@ -132,7 +84,5 @@ module.exports = {
   getUser,
   deleteUser,
   addUser,
-  updateUser,
-  getUserE,
-  getUserK
+  updateUser
 }
