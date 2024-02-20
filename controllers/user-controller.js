@@ -11,7 +11,7 @@ const getUsers = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении массива данных users с сервера" })
+      .json({ message: "Ошибка при получении массива данных users с сервера", error })
   }
 }
 
@@ -24,7 +24,7 @@ const getUser = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении данных user:id с сервера" })
+      .json({ message: "Ошибка при получении данных user:id с сервера", error })
   }
 }
 
@@ -51,7 +51,7 @@ const getUserE = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении данных user:email с сервера" })
+      .json({ message: "Ошибка при получении данных user:email с сервера", error })
   }
 }
 
@@ -72,7 +72,7 @@ const getUserK = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении данных с помощью ключа с сервера" })
+      .json({ message: "Ошибка при получении данных с помощью ключа с сервера", error })
   }
 }
 
@@ -85,7 +85,7 @@ const deleteUser = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при удалении данных user:id с сервера" })
+      .json({ message: "Ошибка при удалении данных user:id с сервера", error })
   }
 }
 
@@ -97,7 +97,7 @@ const addUser = async (req, res) => {
     if (candidate) {
       return res
         .status(500)
-        .json({ error: "Пользователь с таким адресом почты уже существует" })
+        .json({ message: "Пользователь с таким адресом почты уже существует" })
     }
 
     const hashPassword = bcrypt.hashSync(password, 7)
@@ -110,7 +110,7 @@ const addUser = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при добавлении данных users в БД" })
+      .json({ message: "Ошибка при добавлении данных users в БД", error })
   }
 }
 
@@ -123,7 +123,7 @@ const updateUser = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при обновлении данных users в БД" })
+      .json({ message: "Ошибка при обновлении данных users в БД", error })
   }
 }
 

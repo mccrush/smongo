@@ -25,7 +25,7 @@ const app = express()
 app.use(express.json())
 
 app.get('/', function (req, res) {
-  res.sendFile('index.html');
+  res.sendFile('index.html', { root: '.' });
 });
 
 

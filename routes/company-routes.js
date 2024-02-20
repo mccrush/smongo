@@ -1,4 +1,5 @@
 const express = require('express')
+const authMiddleware = require('./../middleware/authMiddleware')
 
 const {
   getCompanies,
@@ -10,10 +11,10 @@ const {
 
 const router = express.Router()
 
-router.get('/companies', getCompanies)
-router.get('/companies/:id', getCompany)
-router.delete('/companies/:id', deleteCompany)
-router.post('/companies', addCompany)
-router.patch('/companies/:id', updateCompany)
+router.get('/companies', authMiddleware, getCompanies)
+router.get('/companies/:id', authMiddleware, getCompany)
+router.delete('/companies/:id', authMiddleware, deleteCompany)
+router.post('/companies', authMiddleware, addCompany)
+router.patch('/companies/:id', authMiddleware, updateCompany)
 
 module.exports = router

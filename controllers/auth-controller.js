@@ -1,118 +1,66 @@
 const User = require('./../models/user')
 const Role = require('./../models/role')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const { secret } = require('./../config')
+const { json } = require('express')
+
+const generateAccessToken = (id, roles) => {
+  const payload = {
+    id, roles
+  }
+  return jwt.sign(payload, secret, { expiresIn: '24h' })
+}
 
 const getRoles = async (req, res) => {
   try {
     // Запустить для создания стартовых ролей. Затем закомментировать
-    // const userRole = new Role()
-    // const adminRole = new Role({ value: 'ADMIN' })
-    // const managerRole = new Role({ value: 'MANAGER' })
-    // await userRole.save()
-    // await adminRole.save()
-    // await managerRole.save()
+    const userRole = new Role()
+    const adminRole = new Role({ value: 'ADMIN' })
+    const managerRole = new Role({ value: 'MANAGER' })
+    await userRole.save()
+    await adminRole.save()
+    await managerRole.save()
     res.json('server work')
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении ролей roles с сервера", error })
+      .json({ message: "Ошибка при получении ролей roles с сервера", error })
   }
 }
 
-const registerUser = () => { }
-const loginUser = () => { }
-
-const getUsers = async (req, res) => {
+const loginUser = async (req, res) => {
   try {
-    const result = await User.find().sort({ name: 1 })
-    res
-      .status(200)
-      .json(result)
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Ошибка при получении массива данных users с сервера", error })
-  }
-}
-
-const getUser = async (req, res) => {
-  try {
-    const result = await User.findById(req.params.id)
-    res
-      .status(200)
-      .json(result)
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Ошибка при получении данных user:id с сервера", error })
-  }
-}
-
-const getUserE = async (req, res) => {
-  try {
-    const result = await User.findOne({ email: req.body.email })
-    if (result) {
-      if (result.password === req.body.password) {
-        res
-          .status(200)
-          .json({ _id: result._id, name: result.name, email: result.email, accessLevel: result.accessLevel, companyId: result.companyId })
-      } else {
-        res
-          .status(500)
-          .json({ error: "Введен неверный пароль" })
-      }
-    } else {
-      res
+    const { email, password } = req.body
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res
         .status(500)
-        .json({ error: "Пользователь с таким Email не найден" })
+        .json({ message: "Пользователь с таким адресом почты не найден" })
     }
 
+    const validPassword = bcrypt.compareSync(password, user.password)
 
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Ошибка при получении данных user:email с сервера", error })
-  }
-}
-
-const getUserK = async (req, res) => {
-  try {
-    const result = await User.findOne({ _id: req.body.aKey })
-    if (result) {
-      res
-        .status(200)
-        .json({ _id: result._id, name: result.name, email: result.email, accessLevel: result.accessLevel, companyId: result.companyId })
-    } else {
-      res
-        .status(200)
-        .json({ error: "Недействительный ключ" })
+    if (!validPassword) {
+      return res
+        .status(500)
+        .json({ message: "Введен неверный пароль" })
     }
 
-
+    const token = generateAccessToken(user._id, user.roles)
+    res
+      .status(200)
+      .json({ token })
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении данных с помощью ключа с сервера", error })
+      .json({ message: "Ошибка при попытке залогинться", error })
   }
 }
 
-
-const addUser = async (req, res) => {
-  const user = new User(req.body)
-  try {
-    const result = await user.save()
-    res
-      .status(201)
-      .json(result)
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Ошибка при добавлении данных users в БД" })
-  }
-}
 
 
 module.exports = {
-  registerUser,
   loginUser,
   getRoles,
 }

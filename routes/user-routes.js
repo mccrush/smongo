@@ -1,4 +1,5 @@
 const express = require('express')
+const authMiddleware = require('./../middleware/authMiddleware')
 
 const {
   getUsers,
@@ -12,11 +13,11 @@ const {
 
 const router = express.Router()
 
-router.get('/users', getUsers)
-router.get('/users/:id', getUser)
-router.delete('/users/:id', deleteUser)
-router.post('/users', addUser)
-router.patch('/users/:id', updateUser)
+router.get('/users', authMiddleware, getUsers)
+router.get('/users/:id', authMiddleware, getUser)
+router.delete('/users/:id', authMiddleware, deleteUser)
+router.post('/users', authMiddleware, addUser)
+router.patch('/users/:id', authMiddleware, updateUser)
 router.post('/auth', getUserE)
 router.post('/authk', getUserK)
 
