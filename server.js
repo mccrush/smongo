@@ -1,8 +1,10 @@
 require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
+const authRoutes = require('./routes/auth-routes')
 const userRoutes = require('./routes/user-routes')
 const companyRoutes = require('./routes/company-routes')
+
 
 let APP_IP = ''
 let APP_PORT = ''
@@ -23,7 +25,7 @@ const app = express()
 app.use(express.json())
 
 app.get('/', function (req, res) {
-  res.sendfile('index.html');
+  res.sendFile('index.html');
 });
 
 
@@ -36,6 +38,7 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use(authRoutes)
 app.use(userRoutes)
 app.use(companyRoutes)
 
@@ -49,7 +52,7 @@ const start = async () => {
       })
     } else if (process.env.APP_ENV === 'prod') {
       app.listen(APP_PORT, APP_IP, (error) => {
-        error ? console.log(error) : console.log(`server.js Listening prod addres: ${APP_PORT}:${APP_PORT}`)
+        error ? console.log(error) : console.log(`server.js Listening prod addres: ${APP_IP}:${APP_PORT}`)
       })
     }
   } catch (error) {

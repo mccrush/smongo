@@ -1,6 +1,25 @@
 const User = require('./../models/user')
 const Role = require('./../models/role')
-const bcrypt = require('bcryptjs')
+
+const getRoles = async (req, res) => {
+  try {
+    // Запустить для создания стартовых ролей. Затем закомментировать
+    // const userRole = new Role()
+    // const adminRole = new Role({ value: 'ADMIN' })
+    // const managerRole = new Role({ value: 'MANAGER' })
+    // await userRole.save()
+    // await adminRole.save()
+    // await managerRole.save()
+    res.json('server work')
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Ошибка при получении ролей roles с сервера", error })
+  }
+}
+
+const registerUser = () => { }
+const loginUser = () => { }
 
 const getUsers = async (req, res) => {
   try {
@@ -11,7 +30,7 @@ const getUsers = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении массива данных users с сервера" })
+      .json({ error: "Ошибка при получении массива данных users с сервера", error })
   }
 }
 
@@ -24,7 +43,7 @@ const getUser = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении данных user:id с сервера" })
+      .json({ error: "Ошибка при получении данных user:id с сервера", error })
   }
 }
 
@@ -51,7 +70,7 @@ const getUserE = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении данных user:email с сервера" })
+      .json({ error: "Ошибка при получении данных user:email с сервера", error })
   }
 }
 
@@ -72,41 +91,18 @@ const getUserK = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении данных с помощью ключа с сервера" })
+      .json({ error: "Ошибка при получении данных с помощью ключа с сервера", error })
   }
 }
 
-const deleteUser = async (req, res) => {
-  try {
-    const result = await User.findByIdAndDelete(req.params.id)
-    res
-      .status(200)
-      .json(result)
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Ошибка при удалении данных user:id с сервера" })
-  }
-}
 
 const addUser = async (req, res) => {
-
+  const user = new User(req.body)
   try {
-    const { name, email, password, companyId } = req.body
-    const candidate = await User.findOne({ email })
-    if (candidate) {
-      return res
-        .status(500)
-        .json({ error: "Пользователь с таким адресом почты уже существует" })
-    }
-
-    const hashPassword = bcrypt.hashSync(password, 7)
-    const userRole = await Role.findOne({ value: 'MASTER' })
-    const user = new User({ name, email, password: hashPassword, companyId, roles: [userRole.value] })
     const result = await user.save()
     res
       .status(201)
-      .json({ message: `Пользователь с email = ${result.email}  успешно создан` })
+      .json(result)
   } catch (error) {
     res
       .status(500)
@@ -114,25 +110,9 @@ const addUser = async (req, res) => {
   }
 }
 
-const updateUser = async (req, res) => {
-  try {
-    const result = await User.findByIdAndUpdate(req.params.id, req.body)
-    res
-      .status(201)
-      .json(result)
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Ошибка при обновлении данных users в БД" })
-  }
-}
 
 module.exports = {
-  getUsers,
-  getUser,
-  deleteUser,
-  addUser,
-  updateUser,
-  getUserE,
-  getUserK
+  registerUser,
+  loginUser,
+  getRoles,
 }
