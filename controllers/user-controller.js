@@ -54,7 +54,7 @@ const addUser = async (req, res) => {
 
     const hashPassword = bcrypt.hashSync(password, 7)
     const userRole = await Role.findOne({ value: 'MASTER' })
-    const user = new User({ name, email, password: hashPassword, companyId, roles: [userRole.value] })
+    const user = new User({ companyId, name, email, password: hashPassword, phone, roles: userRole.value })
     const result = await user.save()
     res
       .status(201)
