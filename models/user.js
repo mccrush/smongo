@@ -10,7 +10,7 @@ const userSchema = new Schema({
   job: { type: Object },
   companyId: { type: String, required: true },
   accessLevel: { type: Number, min: 1, max: 3, default: 3 },
-  roles: [{ type: String, ref: 'Role' }]
+  roles: { type: String, ref: 'Role' }
 })
 
 const User = model('User', userSchema)

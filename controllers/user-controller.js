@@ -33,7 +33,7 @@ const deleteUser = async (req, res) => {
     const result = await User.findByIdAndDelete(req.params.id)
     res
       .status(200)
-      .json(result)
+      .json({ message: "Пользователь успешно удален" })
   } catch (error) {
     res
       .status(500)
@@ -71,7 +71,7 @@ const updateUser = async (req, res) => {
     const result = await User.findByIdAndUpdate(req.params.id, req.body)
     res
       .status(201)
-      .json(result)
+      .json({ message: "Пользователь успешно обновлен" })
   } catch (error) {
     res
       .status(500)

@@ -15,13 +15,16 @@ const generateAccessToken = (id, roles, email, password) => {
 const getRoles = async (req, res) => {
   try {
     // Запустить для создания стартовых ролей. Затем закомментировать
-    const userRole = new Role()
-    const adminRole = new Role({ value: 'ADMIN' })
-    const managerRole = new Role({ value: 'MANAGER' })
-    await userRole.save()
-    await adminRole.save()
-    await managerRole.save()
-    res.json('server work')
+    // const userRole = new Role()
+    // const adminRole = new Role({ value: 'ADMIN' })
+    //const managerRole = new Role({ value: 'MANAGER' })
+    // await userRole.save()
+    // await adminRole.save()
+    //await managerRole.save()
+    const result = await Role.find()
+    res
+      .status(200)
+      .json(result)
   } catch (error) {
     res
       .status(500)

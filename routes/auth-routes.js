@@ -12,6 +12,6 @@ const router = express.Router()
 
 router.post('/login', loginUser)
 router.post('/login-token', authMiddleware, loginUserWithToken)
-router.get('/roles', getRoles)
+router.get('/roles', authMiddleware, getRoles)
 
 module.exports = router
