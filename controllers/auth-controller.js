@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
         .json({ message: "Введен неверный пароль" })
     }
 
-    const token = generateAccessToken(user._id, user.roles, user.email, user.password)
+    const token = generateAccessToken(user._id, user.email, user.password)
     res
       .status(200)
       .json({ token, user })
