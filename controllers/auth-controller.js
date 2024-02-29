@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
         .json({ message: "Введен неверный пароль" })
     }
 
-    const token = generateAccessToken(user._id, user.email, user.password)
+    const token = generateAccessToken(user._id, user.roles, user.email, user.password)
     res
       .status(200)
       .json({ token, user })
@@ -66,7 +66,9 @@ const loginUserWithToken = async (req, res) => {
   try {
     const token = req.headers.authorization
     const { email, password } = req.user
+    //console.log('loginUserWithToken() req.user = ', req.user)
     const user = await User.findOne({ email })
+    //console.log('loginUserWithToken() user = ', user)
     if (!user) {
       return res
         .status(500)

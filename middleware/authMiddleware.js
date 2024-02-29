@@ -17,6 +17,7 @@ module.exports = function (req, res, next) {
     }
     const decodeData = jwt.verify(token, secret)
     req.user = decodeData
+    //console.log('middleware req.user = ', req.user)
     next()
   } catch (error) {
     console.log(error)
