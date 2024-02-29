@@ -9,7 +9,7 @@ const getCompanies = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении массива данных companies с сервера" })
+      .json({ message: "Ошибка при получении массива данных companies с сервера", error })
   }
 }
 
@@ -22,7 +22,7 @@ const getCompany = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при получении данных company:id с сервера" })
+      .json({ message: "Ошибка при получении данных company:id с сервера", error })
   }
 }
 
@@ -35,7 +35,7 @@ const deleteCompany = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при удалении данных company:id с сервера" })
+      .json({ message: "Ошибка при удалении данных company:id с сервера", error })
   }
 }
 
@@ -49,7 +49,7 @@ const addCompany = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при добавлении данных companies в БД" })
+      .json({ message: "Ошибка при добавлении данных companies в БД", error })
   }
 }
 
@@ -62,7 +62,7 @@ const updateCompany = async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ error: "Ошибка при обновлении данных companies в БД" })
+      .json({ message: "Ошибка при обновлении данных companies в БД", error })
   }
 }
 
