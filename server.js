@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const authRoutes = require('./routes/auth-routes')
 const userRoutes = require('./routes/user-routes')
 const companyRoutes = require('./routes/company-routes')
+const productionRoutes = require('./routes/production-routes')
 
 
 let APP_IP = ''
@@ -41,6 +42,7 @@ app.use((req, res, next) => {
 app.use(authRoutes)
 app.use(userRoutes)
 app.use(companyRoutes)
+app.use(productionRoutes)
 
 const start = async () => {
   try {
