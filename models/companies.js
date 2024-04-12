@@ -8,6 +8,7 @@ const companySchema = new Schema({
   stages: [{
     title: String,
     position: { type: Number, min: 1, max: 42, default: 1 },
+    color: { type: String, default: '#424242' },
   }],
   users: [{
     uId: String,
