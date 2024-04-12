@@ -1,5 +1,5 @@
-const User = require('./../models/user')
-const Role = require('./../models/role')
+const User = require('./../models/users')
+const Role = require('./../models/roles')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { secret } = require('./../config')

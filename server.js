@@ -5,6 +5,7 @@ const authRoutes = require('./routes/auth-routes')
 const userRoutes = require('./routes/user-routes')
 const companyRoutes = require('./routes/company-routes')
 const productionRoutes = require('./routes/production-routes')
+const itemRoutes = require('./routes/item-routes')
 
 
 let APP_IP = ''
@@ -40,9 +41,10 @@ app.use((req, res, next) => {
 })
 
 app.use(authRoutes)
-app.use(userRoutes)
-app.use(companyRoutes)
-app.use(productionRoutes)
+// app.use(userRoutes)
+// app.use(companyRoutes)
+// app.use(productionRoutes)
+app.use(itemRoutes)
 
 const start = async () => {
   try {

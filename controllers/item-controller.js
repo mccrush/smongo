@@ -1,7 +1,8 @@
-const ItemModel = require('./../models/role')
+//const ItemModel = require('./../models/role')
 
 const getItemModels = async (req, res) => {
   try {
+    const ItemModel = require('./../models/' + req.params.type)
     const result = await ItemModel.find().sort({ title: 1 })
     res
       .status(200)
@@ -15,6 +16,7 @@ const getItemModels = async (req, res) => {
 
 const getItemModel = async (req, res) => {
   try {
+    const ItemModel = require('./../models/' + req.params.type)
     const result = await ItemModel.findById(req.params.id)
     res
       .status(200)
@@ -28,6 +30,7 @@ const getItemModel = async (req, res) => {
 
 const deleteItemModel = async (req, res) => {
   try {
+    const ItemModel = require('./../models/' + req.params.type)
     const result = await ItemModel.findByIdAndDelete(req.params.id)
     res
       .status(200)
@@ -40,6 +43,7 @@ const deleteItemModel = async (req, res) => {
 }
 
 const addItemModel = async (req, res) => {
+  const ItemModel = require('./../models/' + req.params.type)
   const model = new ItemModel(req.body)
   try {
     const result = await model.save()
@@ -55,6 +59,7 @@ const addItemModel = async (req, res) => {
 
 const updateItemModel = async (req, res) => {
   try {
+    const ItemModel = require('./../models/' + req.params.type)
     const result = await ItemModel.findByIdAndUpdate(req.params.id, req.body)
     res
       .status(201)

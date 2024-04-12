@@ -11,10 +11,10 @@ const {
 
 const router = express.Router()
 
-router.get('/:type', authMiddleware, getItemModels)
-router.get('/:type/:id', authMiddleware, getItemModel)
-router.delete('/:type/:id', authMiddleware, deleteItemModel)
-router.post('/:type', authMiddleware, addItemModel)
-router.patch('/:type/:id', authMiddleware, updateItemModel)
+router.get('/item/:type', authMiddleware, getItemModels)
+router.get('/item/:type/:id', authMiddleware, getItemModel)
+router.delete('/item/:type/:id', authMiddleware, deleteItemModel)
+router.post('/item/:type', authMiddleware, addItemModel)
+router.patch('/item/:type/:id', authMiddleware, updateItemModel)
 
 module.exports = router
