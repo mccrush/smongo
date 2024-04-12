@@ -2,8 +2,8 @@
 const { Schema, model } = require('mongoose')
 
 const companySchema = new Schema({
-  name: { type: String, required: true },
   type: { type: String, default: 'companies' },
+  name: { type: String, required: true },
   jobs: [{ title: String }],
   stages: [{
     title: String,

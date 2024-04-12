@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose')
 
 const productionSchema = new Schema({
-  type: { type: String, default: 'production' },
+  type: { type: String, default: 'productions' },
   title: { type: String, required: true },
   arhive: { type: String, default: false },
   stageId: { type: String, required: true },
