@@ -2,9 +2,9 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/auth-routes')
-const userRoutes = require('./routes/user-routes')
-const companyRoutes = require('./routes/company-routes')
-const productionRoutes = require('./routes/production-routes')
+// const userRoutes = require('./routes/user-routes')
+// const companyRoutes = require('./routes/company-routes')
+// const productionRoutes = require('./routes/production-routes')
 const itemRoutes = require('./routes/item-routes')
 
 
