@@ -2,7 +2,7 @@ const ItemModel = require('./../models/role')
 
 const getItemModels = async (req, res) => {
   try {
-    const result = await ItemModel.find().sort({ name: 1 })
+    const result = await ItemModel.find().sort({ title: 1 })
     res
       .status(200)
       .json(result)
